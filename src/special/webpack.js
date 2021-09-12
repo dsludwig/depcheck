@@ -134,6 +134,9 @@ function parseEntries(entries, deps) {
 }
 
 function parseWebpackConfig(webpackConfig, deps) {
+  if (typeof webpackConfig === 'function') {
+    return parseWebpackConfig(webpackConfig({}, {}), deps);
+  }
   if (Array.isArray(webpackConfig)) {
     return webpackConfig.reduce((accumulator, currentValue) => {
       const currentResults = parseWebpackConfig(currentValue, deps);
